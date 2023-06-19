@@ -1,0 +1,192 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="frm_reserva.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+
+			<div class="alert alert-info" role="alert"> Todos os campos com * são de preenchimento obrigatório.</div>
+
+			<!-- Campos de Controle -->
+
+			<input type="hidden" id="num_process" name="num_process" />
+			<input type="hidden" id="num_documento" name="num_documento" />
+			<input type="hidden" id="atividade" name="atividade" />
+			<input type="hidden" id="modo" name="modo" />
+			<input type="hidden" id="campoDescritor" name="campoDescritor" />
+			<input type="hidden" id="user_logado" name="user_logado" />
+			<input type="hidden" id="nome_usuario_logado" name="nome_usuario_logado" />
+			<input type="hidden" id="responsavel" name="responsavel" />
+			<input type="hidden" id="user_start" name="user_start" />
+
+			<!------------------------>
+
+			<div class="form-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2>CADASTRO DE RESERVA</h2>
+					</div>
+					<div class="panel-body">
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<i class="fluigicon fluigicon-community-edit icon-thumbnail-xs" aria-hidden="true"></i>
+							</div>
+							<div class="col-sm-12 col-md-offset-6 col-md-4 col-lg-4">
+								<label for="codReserva">Cod. Reserva:</label>
+								<input type="number" id="codReserva" name="codReserva" class="form-control" readonly />
+								<span class="help-block">
+									<i class="fluigicon fluigicon-warning-sign icon-xs"></i>
+									<strong>Código gerado automáticamente após envio dos Dados.</strong>
+								</span>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h3>DADOS DO CLIENTE:</h3>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-5 col-lg-5">
+								<label for="nome">Nome:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="nome" name="nome" class="form-control" />
+							</div>
+							<div class="col-sm-12 col-md-3 col-lg-3">
+								<label for="cpf">CPF:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="cpf" name="cpf" class="form-control" mask="999.999.999-99" placeholder="000.000.000-00" onblur="validaCPF(this.value)"/>
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="tpVeiculo">Tipo Veiculo:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<select class="form-control" id="tpVeiculo" name="tpVeiculo" onchange="verificaVeiculo();">
+									<option value=""></option>
+									<option value="NENHUM">NENHUM</option>
+									<option value="CARRO">CARRO</option>
+									<option value="MOTO">MOTO</option>
+									<option value="OUTRO">OUTRO</option>
+								 </select>
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2" id="divPlacaVeiculo">
+								<label for="placaVeiculo">Placa do Veículo:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="placaVeiculo" name="placaVeiculo" class="form-control" />
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="cep">CEP:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="cep" name="cep" class="form-control" mask="99999-999" placeholder="00000-000" onblur="validaCep();" />
+							</div>
+							<div class="col-sm-12 col-md-3 col-lg-3">
+								<label for="endereco">Endereço:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="endereco" name="endereco" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-1 col-lg-1">
+								<label for="numero">N°:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="numero" name="numero" class="form-control" />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="bairro">Bairro:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="bairro" name="bairro" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="cidade">Cidade:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="cidade" name="cidade" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="estado">Estado:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="estado" name="estado" class="form-control" readonly />
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h3>DADOS DA RESERVA:</h3>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-4 col-lg-4">
+								<label for="dtCheckin">Data Check-in:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<div class="input-group date" id="div_dtCheckin">
+									<input type="text" id="dtCheckin" name="dtCheckin" class="form-control calender-data obrigatorio" />
+									<span class="input-group-addon fluigicon fluigicon-md fluigicon-calendar"></span>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-4 col-lg-4">
+								<label for="dtCheckout">Data Check-out:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<div class="input-group date" id="div_dtCheckout">
+									<input type="text" id="dtCheckout" name="dtCheckout" class="form-control calender-data obrigatorio" onblur="contaDiasEstadia();" onchange="contaDiasEstadia();"/>
+									<span class="input-group-addon fluigicon fluigicon-md fluigicon-calendar"></span>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="qtdDiasH">Qtd. Dias:</label>
+								<input type="text" id="qtdDiasH" name="qtdDiasH" class="form-control" readonly/>
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="numApartamento">N° Apartamento:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<select class="form-control" name="numApartamento" id="numApartamento" dataset="ds_aptoDisponiveis" datasetkey="NUMAPTO" datasetvalue="NUMAPTO" addBlankLine="true" ></select>
+								<span class="help-block">
+									<i class="fluigicon fluigicon-warning-sign icon-xs"></i>
+									<strong>Somente Apartamentos Disponíveis.</strong>
+								</span>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<label for="obsReserva">Observações: </label>
+								<textarea class="form-control" rows="3" id="obsReserva" name="obsReserva"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css" />
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="frm_hotel.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+</head>
+
+<body>
+	<div class="fluig-style-guide">
+		<form name="form" role="form">
+
+			<div class="alert alert-info" role="alert"> Todos os campos com * são de preenchimento obrigatório.</div>
+
+			<!-- Campos de Controle -->
+
+			<input type="hidden" id="num_documento" name="num_documento" />
+			<input type="hidden" id="modo" name="modo" />
+
+			<!------------------------>
+
+			<div class="form-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2>CADASTRO DO HOTEL</h2>
+					</div>
+					<div class="panel-body">
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h3>DADOS DO HOTEL:</h3>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<label for="nome">Nome:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="nome" name="nome" class="form-control" />
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="cep">CEP:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="cep" name="cep" class="form-control" mask="99999-999"
+									onblur="validaCep();" />
+							</div>
+							<div class="col-sm-12 col-md-3 col-lg-3">
+								<label for="endereco">Endereço:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="endereco" name="endereco" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-1 col-lg-1">
+								<label for="numero">N°:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="numero" name="numero" class="form-control" />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="bairro">Bairro:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="bairro" name="bairro" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="cidade">Cidade:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="cidade" name="cidade" class="form-control" readonly />
+							</div>
+							<div class="col-sm-12 col-md-2 col-lg-2">
+								<label for="estado">Estado:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="text" id="estado" name="estado" class="form-control" readonly />
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h3>INFORMAÇÕES DO HOTEL:</h3>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-sm-12 col-md-4 col-lg-4">
+								<label for="qtdApartamento">Qtd. Apartamento:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="number" id="qtdApartamento" name="qtdApartamento" class="form-control" />
+							</div>
+							<div class="col-sm-12 col-md-4 col-lg-4">
+								<label for="qtdVagasVP">Qtd. Vagas Veículos:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="number" id="qtdVagasVP" name="qtdVagasVP" class="form-control" />
+								<span class="help-block">
+									<i class="fluigicon fluigicon-warning-sign icon-xs"></i>
+									<strong>Veículos para passeio.</strong>
+								</span>
+							</div>
+							<div class="col-sm-12 col-md-4 col-lg-4">
+								<label for="qtdVagasM">Qtd. Vagas Moto:</label>
+								<span class="required">
+									<strong>*</strong>
+								</span>
+								<input type="number" id="qtdVagasM" name="qtdVagasM" class="form-control" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
